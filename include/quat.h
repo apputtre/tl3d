@@ -35,8 +35,6 @@ namespace tl3d
 			: w{ v[0] }, x{ v[1] }, y{ v[2] }, z{ v[3] }
 		{}
 
-		quat(const vec_initializer<4, T>& init);
-
 		quat<T>& operator=(const quat<T>& other);
 
 		T& operator[](size_t idx) const;

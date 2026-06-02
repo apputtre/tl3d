@@ -3,6 +3,7 @@
 
 #include "linalg/include/mat.h"
 #include "linalg/include/vec.h"
+#include "quat.h"
 
 namespace tl3d
 {

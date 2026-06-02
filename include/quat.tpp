@@ -18,7 +18,7 @@ namespace tl3d
 			return (T&)z;
 			break;
 		default:
-			throw new std::exception("Index out of bounds");
+			throw std::runtime_error("Index out of bounds");
 			break;
 		}
 	}
@@ -32,15 +32,6 @@ namespace tl3d
 		z = other.z;
 
 		return *this;
-	}
-
-	template<typename T>
-	quat<T>::quat<T>(const vec_initializer<4, T>& init)
-	{
-		w = init[0];
-		x = init[1];
-		y = init[2];
-		z = init[3];
 	}
 
 	template<typename T>
