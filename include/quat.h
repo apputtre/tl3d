@@ -39,14 +39,43 @@ namespace tl3d
 			: w{ v[0] }, x{ v[1] }, y{ v[2] }, z{ v[3] }
 		{}
 
-		quat<T>& operator=(const quat<T>& other);
+		quat<T>& operator=(const quat<T>& other)
+		{
+			w = other.w;
+			x = other.x;
+			y = other.y;
+			z = other.z;
 
-		T& operator[](size_t idx) const;
+			return *this;
+		}
 
-		operator vec<4, T>() const;
+		T& operator[](size_t idx) const
+		{
+			switch (idx)
+			{
+			case 0:
+				return (T&)w;
+				break;
+			case 1:
+				return (T&)x;
+				break;
+			case 2:
+				return (T&)y;
+				break;
+			case 3:
+				return (T&)z;
+				break;
+			default:
+				throw std::runtime_error("Index out of bounds");
+				break;
+			}
+		}
+
+		operator vec<4, T>() const
+		{
+			return vec<4, T>(w, x, y, z);
+		}
 	};
 }
-
-#include "quat.tpp"
 
 #endif
