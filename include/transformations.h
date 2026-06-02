@@ -47,10 +47,8 @@ namespace tl3d
 	}
 
 	template<typename T>
-	mat<4, 4, T> rotate(const mat<4, 4, T>& m, T angle, vec<3, T> axis)
+	void rotate(mat<4, 4, T>& m, const T angle, const vec<3, T> axis)
 	{
-		axis = norm(axis);
-
 		T x = axis.x;
 		T y = axis.y;
 		T z = axis.z;
@@ -58,14 +56,12 @@ namespace tl3d
 		T b = sin(angle);
 		T s = (1 - cos(angle));
 
-		mat<4, 4, T> rotation_matrix(
-			vec<4, T>(a + x * x * s, y * x * s + z * b, z * x * s - y * b, 0),
-			vec<4, T>(x * y * s - z * b, a + y * y * s, z * y * s + x * b, 0),
-			vec<4, T>(x * z * s + y * b, y * z * s - x * b, a + z * z * s, 0),
+		m = m * mat<4, 4, T> (
+			vec<4, T>(a + x*x*s, y*x*s + z*b, z*x*s - y*b, 0),
+			vec<4, T>(x*y*s - z*b, a + y*y*s, z*y*s + x*b, 0),
+			vec<4, T>(x*z*s + y*b, y*z*s - x*b, a + z*z*s, 0),
 			vec<4, T>(0, 0, 0, 1)
 		);
-
-		return rotation_matrix * m;
 	}
 
 	inline mat<4, 4, float> perspective(float fov, float aspect, float near, float far)
