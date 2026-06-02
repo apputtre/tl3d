@@ -2,6 +2,7 @@
 
 #include "development_tests/translation.h"
 #include "development_tests/scale.h"
+#include "development_tests/rotation.h"
 
 int main()
 {

@@ -10,46 +10,40 @@ namespace tl3d
 	using namespace linalg;
 
 	template<size_t L, typename T>
-	void trans(const mat<L, L, T>& m, const vec<L - 1, T>& t)
+	void trans(mat<L, L, T>& m, const vec<L - 1, T>& t)
 	{
 		for (size_t i = 0; i < m.num_rows - 1; ++i)
 			m[i][m.num_cols - 1] += t[i];
 	}
 
 	template<size_t L, typename T>
-	void scale(const mat<L, L, T>& m, const T& s)
+	void scale(mat<L, L, T>& m, const T& s)
 	{
 		for (size_t i = 0; i < m.num_cols - 1; ++i)
 			m[i][i] *= s;
 	}
 
 	template<size_t L, typename T, typename U> requires std::convertible_to<U, T> 
-	mat<L, L, T> scale(const mat<L, L, T>& m, const vec<L - 1, U>& s)
+	void scale(mat<L, L, T>& m, const vec<L - 1, U>& s)
 	{
-		mat ret(m);
-
 		for (size_t i = 0; i < m.num_cols - 1; ++i)
-			ret[i][i] *= s[i];
-
-		return ret;
+			m[i][i] *= s[i];
 	}
 
 	template<typename T>
-	mat<4, 4, T> rotate(const mat<4, 4, T>& m, const quat<T>& quat)
+	void rotate(mat<4, 4, T>& m, const quat<T>& quat)
 	{
 		T w = quat.w;
 		T x = quat.x;
 		T y = quat.y;
 		T z = quat.z;
 
-		mat<4, 4, T> rotation_matrix(
-			vec<4, T>(1 - 2 * (y * y + z * z), 2 * x * y - 2 * z * w, 2 * x * z + 2 * y * w, 0),
-			vec<4, T>(2 * x * y + 2 * z * w, 1 - 2 * (x * x + z * z), 2 * y * z - 2 * x * w, 0),
-			vec<4, T>(2 * x * z - 2 * y * w, 2 * y * z + 2 * x * w, 1 - 2 * (x * x + y * y), 0),
+		m = m * mat<4, 4, T> (
+			vec<4, T>(1 - 2*(y*y + z*z), 2*x*y - 2*z*w, 2*x*z + 2*y*w, 0),
+			vec<4, T>(2*x*y + 2*z*w, 1 - 2*(x*x + z*z), 2*y*z - 2*x*w, 0),
+			vec<4, T>(2*x*z - 2*y*w, 2*y*z + 2*x*w, 1 - 2*(x*x + y*y), 0),
 			vec<4, T>(0, 0, 0, 1)
 		);
-
-		return rotation_matrix * m;
 	}
 
 	template<typename T>

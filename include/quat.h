@@ -24,7 +24,11 @@ namespace tl3d
 		{}
 
 		quat(T angle, vec<3, T> axis)
-			: w{cos(angle / 2)}, x{axis.x * sin(angle / 2)}, y{axis.y * sin(angle/2)}, z{axis.z * sin(angle/2)}
+			:
+				w{std::cos(angle/2.0f)},
+				x{axis.x*std::sin(angle/2.0f)},
+				y{axis.y*std::sin(angle/2.0f)},
+				z{axis.z*std::sin(angle/2.0f)}
 		{}
 
 		quat(const quat<T>& other)
