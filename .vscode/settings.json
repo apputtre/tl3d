@@ -1,0 +1,8 @@
+{
+    "terminal.integrated.defaultProfile.windows": "bash (MSYS2)",
+    "vim.vimrc.enable": true,
+    "vim.vimrc.path": "C:/msys64/home/Revcheck/.vimrc",
+    "C_Cpp.default.cppStandard": "c++20",
+    "git.allowNoVerifyCommit": true,
+    //"chat.disableAIFeatures": true
+}

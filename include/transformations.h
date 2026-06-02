@@ -17,14 +17,10 @@ namespace tl3d
 	}
 
 	template<size_t L, typename T>
-	mat<L, L, T> scale(const mat<L, L, T>& m, const T& s)
+	void scale(const mat<L, L, T>& m, const T& s)
 	{
-		mat ret(m);
-
-		for (int i = 0; i < m.num_cols - 1; ++i)
-			ret[i][i] *= s;
-
-		return ret;
+		for (size_t i = 0; i < m.num_cols - 1; ++i)
+			m[i][i] *= s;
 	}
 
 	template<size_t L, typename T, typename U> requires std::convertible_to<U, T> 
@@ -32,7 +28,7 @@ namespace tl3d
 	{
 		mat ret(m);
 
-		for (int i = 0; i < m.num_cols - 1; ++i)
+		for (size_t i = 0; i < m.num_cols - 1; ++i)
 			ret[i][i] *= s[i];
 
 		return ret;
