@@ -10,14 +10,10 @@ namespace tl3d
 	using namespace linalg;
 
 	template<size_t L, typename T>
-	mat<L, L, T> trans(const mat<L, L, T>& m, const vec<L - 1, T>& t)
+	void trans(const mat<L, L, T>& m, const vec<L - 1, T>& t)
 	{
-		mat ret(m);
-
 		for (size_t i = 0; i < m.num_rows - 1; ++i)
-			ret[ret.num_cols - 1][i] += t[i];
-
-		return ret;
+			m[i][m.num_cols - 1] += t[i];
 	}
 
 	template<size_t L, typename T>
