@@ -1,7 +1,7 @@
 #include "cppUnit.h"
 
-#include <numbers>
 #include "transformations.h"
+#include "testutils.h"
 
 linalg::mat<4, 4, float> getRotationMatrix(float angle, linalg::vec<3, float> axis)
 {
@@ -24,23 +24,6 @@ linalg::mat<4, 4, float> getRotationMatrix(float angle, linalg::vec<3, float> ax
     result[3][3] = 1;
 
     return result;
-}
-
-int diffUlps(float f1, float f2)
-{
-    float x, y;
-    if (f1 >= f2)
-    {
-        x = f1;
-        y = f2;
-    }
-    else
-    {
-        x = f2;
-        y = f1;
-    }
-
-    return std::bit_cast<unsigned long>(x) - std::bit_cast<unsigned long>(y);
 }
 
 void assertMatEq(const linalg::mat<4, 4, float>& m1, const linalg::mat<4, 4, float>& m2, TestEnvironment& tenv)

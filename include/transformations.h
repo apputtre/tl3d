@@ -66,27 +66,23 @@ namespace tl3d
 
 	inline mat<4, 4, float> perspective(float fov, float aspect, float near, float far)
 	{
-		float height = 2 * near * tan(fov / 2);
-		float width = aspect * height;
-		float top = height / 2;
-		//float bottom = -height / 2;
-		//float left = -width / 2;
-		float right = width / 2;
+		float top = near * std::tan(fov / 2.0f);
+		float right = top * aspect;
 
 		return mat<4, 4, float> {
 			{ near / right, 0, 0, 0 },
 			{ 0, near / top, 0, 0 },
-			{ 0, 0, -(far + near) / (far - near), -1 },
-			{ 0, 0, -2 * far * near / (far - near), 0 }
+			{ 0, 0, -(far + near) / (far - near), -2 * far * near / (far - near) },
+			{ 0, 0, -1, 0 }
 		};
 	}
 
 	inline mat<4, 4, float> orthographic(float left, float right, float bottom, float top, float near, float far)
 	{
 		return mat<4, 4, float> {
-			{ 2.0f / (right - left), 0, 0, 0 },
-			{ 0, 2.0f / (top - bottom), 0, 0 },
-			{ 0, 0, -2.0f / (far - near), 0 },
+			{ 2.0f / (right - left), 0, 0, -1 },
+			{ 0, 2.0f / (top - bottom), 0, -1 },
+			{ 0, 0, -2.0f / (far - near), -1 },
 			{ -2.0f * left / (right - left) - 1.0f, -2.0f * bottom / (top - bottom) - 1.0f, -2.0f * near / (far - near) - 1.0f, 1 }
 		};
 	}
