@@ -1,6 +1,6 @@
 #include "cppUnit.h"
 
-#include "linalg/include/mat.h"
+#include "linalg/mat.h"
 #include "transformations.h"
 
 SUITE("Translation")

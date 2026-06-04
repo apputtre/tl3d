@@ -1,6 +1,0 @@
-[submodule "test/cppUnit"]
-	path = test/cppUnit
-	url = https://github.com/apputtre/cppUnit
-[submodule "include/linalg"]
-	path = include/linalg
-	url = https://github.com/apputtre/linalg
