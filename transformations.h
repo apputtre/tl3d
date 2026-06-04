@@ -1,8 +1,8 @@
 #ifndef TRANSFORMATIONS_H
 #define TRANSFORMATIONS_H
 
-#include "ext/linalg/mat.h"
-#include "ext/linalg/vec.h"
+#include "linalg/mat.h"
+#include "linalg/vec.h"
 #include "quat.h"
 
 namespace tl3d

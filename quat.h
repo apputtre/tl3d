@@ -1,7 +1,7 @@
 #ifndef QUAT_H
 #define QUAT_H
 
-#include "ext/linalg/vec.h"
+#include "linalg/vec.h"
 
 namespace tl3d
 {
