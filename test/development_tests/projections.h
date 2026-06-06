@@ -11,14 +11,14 @@ SUITE("Orthographic")
     {
         float height = 400;
         float width = 600;
-        float near = 0.0f;
-        float far = 100.0f;
+        float near = 50.0f;
+        float far = -50.0f;
 
-        linalg::mat<4, 4, float> ortho = tl3d::orthographic(0, width, 0, height, near, far);
+        linalg::mat<4, 4, float> ortho = tl3d::orthographic(-width / 2, width / 2, -height / 2, height / 2, near, far);
 
         FTEST("Point in center")
         {
-            linalg::vec<3, float> point(300, 200, -50);
+            linalg::vec<3, float> point(0, 0, 0);
 
             linalg::vec<4, float> projected_point = ortho * linalg::vec<4, float>(point.x, point.y, point.z, 1);
 
@@ -29,7 +29,7 @@ SUITE("Orthographic")
 
         FTEST("Point in lower left corner")
         {
-            linalg::vec<3, float> point(0, 0, 0);
+            linalg::vec<3, float> point(-width / 2, -height / 2, near);
 
             linalg::vec<4, float> projected_point = ortho * linalg::vec<4, float>(point.x, point.y, point.z, 1);
 
@@ -40,7 +40,7 @@ SUITE("Orthographic")
 
         FTEST("Point in upper right corner")
         {
-            linalg::vec<3, float> point(600, 400, -100);
+            linalg::vec<3, float> point(width / 2, height / 2, far);
 
             linalg::vec<4, float> projected_point = ortho * linalg::vec<4, float>(point.x, point.y, point.z, 1);
 
@@ -49,15 +49,42 @@ SUITE("Orthographic")
             assertEq(projected_point.z, 1.0f);
         }
 
-        FTEST("Point off center")
+        FTEST("Triangle")
         {
-            linalg::vec<3, float> point(400.0f, 800.0f/3.0f, -200/3.0f);
+            float s = width / 3;
+            float pi = std::numbers::pi_v<float>;
 
-            linalg::vec<4, float> projected_point = ortho * linalg::vec<4, float>(point.x, point.y, point.z, 1);
+            // lower left
+            linalg::vec<3, float> p1(-s/2, -s*sin(pi / 3)/2, 0);
+            // lower right
+            linalg::vec<3, float> p2(s/2, -s*sin(pi / 3)/2, 0);
+            // top
+            linalg::vec<3, float> p3(s/2, s*sin(pi / 3)/2, 0);
 
-            assertEq(projected_point.x, 2.0f * point.x / width - 1.0f);
-            assertEq(projected_point.y, 2.0f * point.y / height - 1.0f);
-            assertEq(projected_point.z, 2.0f * (-point.z - near) / (far - near) - 1.0f);
+            linalg::vec<4, float> p1_p = ortho * linalg::vec<4, float>(p1, 1.0f);
+            linalg::vec<4, float> p2_p = ortho * linalg::vec<4, float>(p2, 1.0f);
+            linalg::vec<4, float> p3_p = ortho * linalg::vec<4, float>(p3, 1.0f);
+
+            assertEq(p1_p, linalg::vec<4, float> {
+                p1.x / width - 1,
+                p1.y / height - 1,
+                0,
+                1
+            });
+
+            assertEq(p2_p, linalg::vec<4, float> {
+                p2.x / width - 1,
+                p2.y / height - 1,
+                0,
+                1
+            });
+
+            assertEq(p3_p, linalg::vec<4, float> {
+                p3.x / width - 1,
+                p3.y / height - 1,
+                0,
+                1
+            });
         }
     }
 }
