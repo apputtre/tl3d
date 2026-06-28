@@ -79,20 +79,11 @@ namespace tl3d
 
 	inline mat<4, 4, float> orthographic(float left, float right, float bottom, float top, float near, float far)
 	{
-		/*
-		return mat<4, 4, float> {
-			{ 2.0f / (right - left), 0, 0, -1 },
-			{ 0, 2.0f / (top - bottom), 0, -1 },
-			{ 0, 0, -2.0f / (far - near), -1 },
-			{ -2.0f * left / (right - left) - 1.0f, -2.0f * bottom / (top - bottom) - 1.0f, -2.0f * near / (far - near) - 1.0f, 1 }
-		};
-		*/
-
 		return mat<4, 4, float> {
 			{ 2.0f / (right - left), 0, 0, -(right + left) / (right - left) },
 			{ 0, 2.0f / (top - bottom), 0, -(top + bottom) / (top - bottom) },
-			{ 0, 0, -2.0f / (far - near), -(far + near) / (far - near) },
-			{ -2.0f * left / (right - left) - 1.0f, -2.0f * bottom / (top - bottom) - 1.0f, -2.0f * near / (far - near) - 1.0f, 1 }
+			{ 0, 0, 2.0f / (far - near), -(far + near) / (far - near) },
+			{ 0, 0, 0, 1 }
 		};
 	}
 }
