@@ -10,28 +10,34 @@ namespace tl3d
 	using namespace linalg;
 
 	template<size_t L, typename T>
-	void trans(mat<L, L, T>& m, const vec<L - 1, T>& t)
+	mat<L, L, T>& trans(mat<L, L, T>& m, const vec<L - 1, T>& t)
 	{
 		for (size_t i = 0; i < m.num_rows - 1; ++i)
 			m[i][m.num_cols - 1] += t[i];
+
+		return m;
 	}
 
 	template<size_t L, typename T>
-	void scale(mat<L, L, T>& m, const T& s)
+	mat<L, L, T>& scale(mat<L, L, T>& m, const T& s)
 	{
 		for (size_t i = 0; i < m.num_cols - 1; ++i)
 			m[i][i] *= s;
+		
+		return m;
 	}
 
 	template<size_t L, typename T, typename U> requires std::convertible_to<U, T> 
-	void scale(mat<L, L, T>& m, const vec<L - 1, U>& s)
+	mat<L, L, T>& scale(mat<L, L, T>& m, const vec<L - 1, U>& s)
 	{
 		for (size_t i = 0; i < m.num_cols - 1; ++i)
 			m[i][i] *= s[i];
+		
+		return m;
 	}
 
 	template<typename T>
-	void rotate(mat<4, 4, T>& m, const quat<T>& quat)
+	mat<4, 4, T>& rotate(mat<4, 4, T>& m, const quat<T>& quat)
 	{
 		T w = quat.w;
 		T x = quat.x;
@@ -44,10 +50,12 @@ namespace tl3d
 			vec<4, T>(2*x*z - 2*y*w, 2*y*z + 2*x*w, 1 - 2*(x*x + y*y), 0),
 			vec<4, T>(0, 0, 0, 1)
 		);
+		
+		return m;
 	}
 
 	template<typename T>
-	void rotate(mat<4, 4, T>& m, const T angle, const vec<3, T> axis)
+	mat<4, 4, T>& rotate(mat<4, 4, T>& m, const T angle, const vec<3, T> axis)
 	{
 		T x = axis.x;
 		T y = axis.y;
@@ -62,6 +70,8 @@ namespace tl3d
 			vec<4, T>(x*z*s + y*b, y*z*s - x*b, a + z*z*s, 0),
 			vec<4, T>(0, 0, 0, 1)
 		);
+
+		return m;
 	}
 
 	inline mat<4, 4, float> perspective(float fov, float aspect, float near, float far)
