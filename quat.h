@@ -133,7 +133,7 @@ namespace tl3d
 		{
 			T acc = 0;
 
-			for (int i = 0; i < this->length; ++i)
+			for (size_t i = 0; i < this->length; ++i)
 				acc += std::pow((*this)[i], 2);
 
 			T mag = std::sqrt(acc);
@@ -150,9 +150,8 @@ namespace tl3d
 
 			quat<T> ret = *this / m;
 			
-			return *this;
+			return ret;
 		}
-
 
 	private:
 		// Apply a unary operation to every element in the vector

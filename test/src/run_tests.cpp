@@ -6,6 +6,8 @@
 #include "development_tests/projections.h"
 #include "development_tests/quat_comparison.h"
 
+#include "bug_tests/quaternion_norm.h"
+
 int main()
 {
     std::cout << "Running tests..." << std::endl;
