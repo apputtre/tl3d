@@ -257,6 +257,22 @@ namespace tl3d
 		return new_vec;
 	}
 
+	template<typename T>
+	bool operator==(const quat<T>& q1, const quat<T>& q2)
+	{
+		for (size_t i = 0; i < q1.length; ++i)	
+			if (q1[i] != q2[i])
+				return false;
+
+		return true;
+	}
+
+	template<typename T>
+	bool operator!=(const quat<T>& q1, const quat<T>& q2)
+	{
+		return !(q1 == q2);
+	}
+
 	template<typename T, typename U> requires std::convertible_to<U, T>
 	quat<T> operator/(const U& val, const quat<T>& q)
 	{
@@ -268,8 +284,8 @@ namespace tl3d
 	template<typename T>
 	std::ostream& operator<<(std::ostream& os, const quat<T>& q)
 	{
-		for (int i = 0; i < q.length; ++i)
-			std::cout << q[i] << "\t";
+		for (size_t i = 0; i < q.length; ++i)
+			os << q[i] << "\t";
 
 		return os;
 	}

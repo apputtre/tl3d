@@ -4,6 +4,7 @@
 #include "development_tests/scale.h"
 #include "development_tests/rotation.h"
 #include "development_tests/projections.h"
+#include "development_tests/quat_comparison.h"
 
 int main()
 {
