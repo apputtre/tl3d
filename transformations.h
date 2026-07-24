@@ -55,11 +55,13 @@ namespace tl3d
 	}
 
 	template<typename T>
-	mat<4, 4, T>& rotate(mat<4, 4, T>& m, const T angle, const vec<3, T> axis)
+	mat<4, 4, T>& rotate(mat<4, 4, T>& m, const T angle, const vec<3, T>& axis)
 	{
-		T x = axis.x;
-		T y = axis.y;
-		T z = axis.z;
+		vec<3, T> norm_axis = axis.norm();
+
+		T x = norm_axis.x;
+		T y = norm_axis.y;
+		T z = norm_axis.z;
 		T a = cos(angle);
 		T b = sin(angle);
 		T s = (1 - cos(angle));
